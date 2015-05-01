@@ -24,10 +24,10 @@
             </tr>
             </thead>
             <tr ng-repeat="activity in allActivities | orderBy:'-date'">
-                <td>{{ activity.date }}</td>
-                <td>{{ activity.time }}</td>
-                <td>{{ activity.distance }}</td>
-                <td>{{ activity.avgHR }}</td>
+                <td>{{ activity.date | date:'yyyy-MM-dd HH:mm' }}</td>
+                <td>{{ activity.time * 1000 | date:'mm:ss' }}</td>
+                <td>{{ activity.distance / 1000 | number:2 }} km</td>
+                <td>{{ activity.avgHR | number:0 }} BPM</td>
                 <td>{{ activity.fitnessValue }}</td>
             </tr>
         </table>
