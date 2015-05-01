@@ -23,7 +23,7 @@
                 <th>Fitness Value</th>
             </tr>
             </thead>
-            <tr ng-repeat="activity in allActivities track by $index">
+            <tr ng-repeat="activity in allActivities | orderBy:'-date'">
                 <td>{{ activity.date }}</td>
                 <td>{{ activity.time }}</td>
                 <td>{{ activity.distance }}</td>
