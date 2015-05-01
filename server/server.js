@@ -47,6 +47,7 @@ function createActivity(doc) {
         avgHR: averageLapsHR(laps),
         laps: laps
     }
+    activity.fitnessValue = calculateFitnessValue(activity.distance, activity.time, activity.avgHR);
     return activity;
 }
 
@@ -72,6 +73,10 @@ function averageLapsHR(laps) {
         totalHR += lap.avgHR;
     });
     return totalHR/laps.length;
+}
+
+function calculateFitnessValue(distance, time, avgHR) {
+    return Math.round(distance/time/avgHR*360*(0.97+0.00001*distance)*100);
 }
 
 MongoClient.connect(mongoUrl, function(err, db) {
