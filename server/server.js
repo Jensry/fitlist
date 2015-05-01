@@ -68,11 +68,11 @@ function totalLapsDistance(laps) {
 }
 
 function averageLapsHR(laps) {
-    var totalHR = 0;
+    var totalHRxTime = 0;
     laps.forEach(function (lap) {
-        totalHR += lap.avgHR;
+        totalHRxTime += lap.avgHR * lap.time;
     });
-    return totalHR/laps.length;
+    return totalHRxTime/totalLapsTime(laps);
 }
 
 function calculateFitnessValue(distance, time, avgHR) {

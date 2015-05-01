@@ -6,7 +6,6 @@ var assert = require('assert');
 var MongoClient = require('mongodb').MongoClient;
 var xml2js = require('xml2js');
 var fs = require('fs');
-var prettyjson = require('prettyjson');
 
 var mongoUrl = 'mongodb://localhost:27017/fitlist';
 
