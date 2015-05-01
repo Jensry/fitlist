@@ -31,15 +31,7 @@ app.get('/activities', function (req, res) {
 
 function createActivity(doc) {
     var activityDoc = doc.TrainingCenterDatabase.Activities.Activity;
-    var laps = [];
-    activityDoc.Lap.forEach(function (lap) {
-        laps.push({
-            distance: lap.DistanceMeters,
-            avgHR: lap.AverageHeartRateBpm.Value,
-            maximumHR: lap.MaximumHeartRateBpm.Value,
-            time: lap.TotalTimeSeconds
-        });
-    });
+    var laps = getLaps(activityDoc);
     var activity = {
         date: activityDoc.Id,
         time: totalLapsTime(laps),
@@ -49,6 +41,24 @@ function createActivity(doc) {
     }
     activity.fitnessValue = calculateFitnessValue(activity.distance, activity.time, activity.avgHR);
     return activity;
+}
+
+function getLaps(activityDoc) {
+    var laps = [];
+    activityDoc.Lap.forEach(function (lap, index) {
+        laps.push({
+            distance: lap.DistanceMeters,
+            avgHR: lap.AverageHeartRateBpm.Value,
+            maximumHR: lap.MaximumHeartRateBpm.Value,
+            time: lap.TotalTimeSeconds
+        });
+        laps[index].accumulatedDistance = totalLapsDistance(laps);
+        laps[index].accumulatedAvgHR = averageLapsHR(laps);
+        laps[index].accumulatedTime = totalLapsTime(laps)
+        laps[index].accumulatedFitnessValue = calculateFitnessValue(
+            laps[index].accumulatedDistance, laps[index].accumulatedTime, laps[index].accumulatedAvgHR);
+    });
+    return laps;
 }
 
 function totalLapsTime(laps) {
