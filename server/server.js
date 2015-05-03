@@ -29,8 +29,7 @@ app.get('/activities', function (req, res) {
     });
 });
 
-function createActivity(doc) {
-    var activityDoc = doc.TrainingCenterDatabase.Activities.Activity;
+function createActivity(activityDoc) {
     var laps = getLaps(activityDoc);
     var activity = {
         date: activityDoc.Id,
