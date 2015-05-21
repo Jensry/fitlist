@@ -21,7 +21,9 @@
                     <th>Time</th>
                     <th>Distance</th>
                     <th>Average Heart Rate</th>
+                    <th>Speed by HR</th>
                     <th>Fitness Value</th>
+                    <th>New Fitness Value</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -30,7 +32,9 @@
                     <td>{{ lap.accumulatedTime * 1000 | date:'mm:ss' }}</td>
                     <td>{{ lap.accumulatedDistance / 1000 | number:2 }} km</td>
                     <td>{{ lap.accumulatedAvgHR | number:0 }} BPM</td>
+                    <td>{{ lap.accumulatedSpeedByHR | number:1 }}</td>
                     <td>{{ lap.accumulatedFitnessValue }}</td>
+                    <td>{{ lap.accumulatedFitnessValue2 }}</td>
                 </tr>
                 <!--<tr class="active">
                     <td>{{ activity.date | date:'yyyy-MM-dd HH:mm' }}</td>

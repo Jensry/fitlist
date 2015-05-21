@@ -6,6 +6,8 @@ var app = express();
 var mongoUrl = 'mongodb://localhost:27017/fitlist';
 var activitiesCollection;
 
+var thresholdHR = 165;
+
 app.use('/', express.static(path.join(__dirname, 'dist/')));
 
 var server = app.listen(9000, function () {
@@ -56,6 +58,10 @@ function getLaps(activityDoc) {
         laps[index].accumulatedTime = totalLapsTime(laps)
         laps[index].accumulatedFitnessValue = calculateFitnessValue(
             laps[index].accumulatedDistance, laps[index].accumulatedTime, laps[index].accumulatedAvgHR);
+        laps[index].accumulatedFitnessValue2 = calculateNewFitnessValue(
+            laps[index].accumulatedDistance, laps[index].accumulatedTime, laps[index].accumulatedAvgHR);
+        laps[index].accumulatedSpeedByHR =
+            laps[index].accumulatedDistance / laps[index].accumulatedTime / (laps[index].accumulatedAvgHR-65) * 1000;
     });
     return laps;
 }
@@ -86,6 +92,11 @@ function averageLapsHR(laps) {
 
 function calculateFitnessValue(distance, time, avgHR) {
     return Math.round(distance/time/avgHR*360*(0.97+0.00001*distance)*100);
+}
+
+function calculateNewFitnessValue(distance, time, avgHR) {
+    //return Math.round(distance/time/(avgHR-35)*360*(2-Math.pow((1500+distance)/1000, -1.3))*10);
+    return Math.round(distance/time/(1+(avgHR-thresholdHR)*0.008)*100);
 }
 
 MongoClient.connect(mongoUrl, function(err, db) {
