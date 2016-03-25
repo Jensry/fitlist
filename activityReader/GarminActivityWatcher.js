@@ -5,7 +5,7 @@
 var fs = require('fs');
 
 //var garminActivitiesFolder = '%ProgramData%/Garmin/GarminConnect/Forerunner 405CX-3819971394/FitnessHistory/';
-var garminActivitiesFolder = 'C:\ProgramData/Garmin/GarminConnect/Forerunner 405CX-3819971394/FitnessHistory/';
+var garminActivitiesFolder = 'C:\ProgramData/Garmin/GarminConnect/-3819971394/FitnessHistory/';
 var localActivitiesFolder = __dirname + '/data/';
 
 
